@@ -1,17 +1,10 @@
-name: Daily DevSync Commit
-
-on:
-  # This schedule runs at 8:30 UTC every day.
-  # You can change '30 8' to any specific minute and hour.
-  schedule:
-    - cron: '30 8 * * *'
-  
-  # This allows you to run the workflow manually
-  workflow_dispatch:
-
 jobs:
   daily-commit:
     runs-on: ubuntu-latest
+
+    # ADD THIS BLOCK TO FIX THE ERROR
+    permissions:
+      contents: write # This grants the workflow permission to push commits
 
     steps:
       # Step 1: Check out the repository's code
