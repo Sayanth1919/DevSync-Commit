@@ -1,23 +1,36 @@
+name: Daily DevSync Commit
+
+# This 'on:' block tells GitHub WHEN to run the workflow.
+# It must be at the very edge (no indentation).
+on:
+  # This 'schedule:' trigger MUST be indented with two spaces.
+  schedule:
+    - cron: '30 8 * * *'
+  
+  # This 'workflow_dispatch:' trigger MUST also be indented with two spaces.
+  workflow_dispatch:
+
+# The 'jobs:' block must be at the same level as 'on:' (no indentation).
 jobs:
   daily-commit:
+    # 'runs-on:' must be indented under 'daily-commit:'
     runs-on: ubuntu-latest
 
-    # ADD THIS BLOCK TO FIX THE ERROR
+    # 'permissions:' must also be indented under 'daily-commit:'
     permissions:
-      contents: write # This grants the workflow permission to push commits
+      contents: write
 
+    # 'steps:' must also be indented under 'daily-commit:'
     steps:
-      # Step 1: Check out the repository's code
+      # Each step (starting with '-') must be indented under 'steps:'
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Configure Git user (includes your email in the name)
       - name: Configure Git user for 24f2002682@ds.study.iitm.ac.in
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
 
-      # Step 3: Create an empty commit and push it
       - name: Create and push daily commit
         run: |
           git commit --allow-empty -m "Daily automated commit for DevSync"
